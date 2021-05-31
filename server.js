@@ -205,7 +205,7 @@ function addRole() {
         }
 
         connection.query(
-            "INSERT INTO role SET ?",
+            "INSERT INTO roles SET ?",
             {
                 title: answer.new_role,
                 salary: answer.salary,
