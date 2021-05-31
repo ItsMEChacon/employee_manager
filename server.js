@@ -11,7 +11,7 @@ const connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: process.env.password,
-    database: "employeeTracker_DB"
+    database: "employeetracker_db"
 })
 
 // CONNECT TO THE MYSQL SERVER AND SQL DATABASE
@@ -84,7 +84,7 @@ function viewDepartments() {
 }
 
 function viewRoles() {
-    var query = "SELECT * FROM role";
+    var query = "SELECT * FROM roles";
     connection.query(query, function(err, res){
     if (err) throw err;
     console.table('All roles:', res);
@@ -93,7 +93,7 @@ function viewRoles() {
 }
 
 function addEmployee() {
-    connection.query("SELECT * FROM role", function (err, res) {
+    connection.query("SELECT * FROM roles", function (err, res) {
     if (err) throw err;
     
     inquirer
@@ -109,7 +109,7 @@ function addEmployee() {
                 message: "Employee's last name: "
             },
             {
-                name: "role", 
+                name: "roles", 
                 type: "list",
                 choices: function() {
                 var roleArray = [];
@@ -123,7 +123,7 @@ function addEmployee() {
             ]).then(function (answer) {
                 let roleID;
                 for (let j = 0; j < res.length; j++) {
-                if (res[j].title == answer.role) {
+                if (res[j].title == answer.roles) {
                     roleID = res[j].id;
                     console.log(roleID)
                 }                  
@@ -133,7 +133,7 @@ function addEmployee() {
                 {
                     first_name: answer.first_name,
                     last_name: answer.last_name,
-                    role_id: roleID,
+                    roles_id: roleID,
                 },
                 function (err) {
                     if (err) throw err;
